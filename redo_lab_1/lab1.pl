@@ -148,7 +148,11 @@ inv([],[]).
 inv([X|Xs], L) :- last(Y,X,L), inv(Xs, Y). 
 % x è l'ultimo della seconda lista e poi continuo sulla parte rimanente che ho sempre grazie alla last
 
+% double(List,List)
+% suggestion: remember predicate append/3
+% example: double([1,2,3],[1,2,3,1,2,3]).
 
+double(L,L2) :- append(L,L,L2).
 
 
 
