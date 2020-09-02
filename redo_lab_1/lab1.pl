@@ -106,10 +106,21 @@ same([X|Xs],[X|Ys]):- same(Xs,Ys).
 % example: all_bigger([10,20,30,40],[9,19,29,39]).
 
 all_bigger([],[]).
-all_bigger([X|Xs], [Y|Ys]) :- all_bigger([Xs], [Ys]), X > Y.
+all_bigger([X|Xs], [Y|Ys]) :- X > Y, all_bigger(Xs,Ys).
  
 
+% sublist(List1,List2)
+% List1 should contain elements all also in List2
+% example: sublist([1,2],[5,3,2,1]).
+% do a recursion on List1, each time just use search of exercise 1.1!
 
+sublist([], L).
+sublist([X|Xs], L) :- sublist(Xs, L), search(X, L). 
+
+% seq(N,List)
+% example: seq(5,[0,0,0,0,0]).
+seq(0,[]).
+seq(N,[0|T]):- N > 0, N2 is N-1, seq(N2,T).
 
 
 
