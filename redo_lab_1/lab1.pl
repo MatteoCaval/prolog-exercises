@@ -155,7 +155,11 @@ inv([X|Xs], L) :- last(Y,X,L), inv(Xs, Y).
 double(L,L2) :- append(L,L,L2).
 
 
+% times(List,N,List)
+% example: times([1,2,3],3,[1,2,3,1,2,3,1,2,3]).
 
+times(L,0,[]).
+times(L,N,R) :- N > 0, N2 is N - 1, append(L,L2,R), times(L,N2,L2).
 
 
 
