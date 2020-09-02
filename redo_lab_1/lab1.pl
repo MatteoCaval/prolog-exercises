@@ -129,7 +129,15 @@ seqR(0, [0]).
 seqR(N, [N|T]) :- N > 0, N2 is N-1, seqR(N2,T).
 
 
+% seqR2(N,List)
+% example: seqR2(4,[0,1,2,3,4]).
+% you may need to add a predicate “last” – last([1,2,3],5,[1,2,3,5]).
 
+last([],X,[X]).
+last([X|Xs],Z,[X|Ys]) :- last(Xs, Z, Ys).
+
+seqR2(0,[0]).
+seqR2(N, L) :- N > 0, N2 is N - 1, last(E, N, L), seqR2(N2, E).
 
 
 
