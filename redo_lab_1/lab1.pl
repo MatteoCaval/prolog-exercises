@@ -141,6 +141,13 @@ seqR2(N, L) :- N > 0, N2 is N - 1, last(E, N, L), seqR2(N2, E).
 
 
 
+% inv(List,List)
+% example: inv([1,2,3],[3,2,1]).
+
+inv([],[]).
+inv([X|Xs], L) :- last(Y,X,L), inv(Xs, Y). 
+% x è l'ultimo della seconda lista e poi continuo sulla parte rimanente che ho sempre grazie alla last
+
 
 
 
