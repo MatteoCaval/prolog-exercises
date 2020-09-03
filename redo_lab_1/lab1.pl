@@ -159,6 +159,7 @@ double(L,L2) :- append(L,L,L2).
 % example: times([1,2,3],3,[1,2,3,1,2,3,1,2,3]).
 
 times(L,0,[]).
+% L2 parte della lista senza ultimo append
 times(L,N,R) :- N > 0, N2 is N - 1, append(L,L2,R), times(L,N2,L2).
 
 
