@@ -58,7 +58,7 @@ fromCircList([H1,H2|T],[e(H1,H2)|L],F) :- fromCircList([H2|T],L,F).
 % drop all edges starting and leaving from a Node
 % use dropAll defined in 1.1
 dropNode(G,N,O):- dropAll(G,e(N,_),G2),dropAll(G2,e(_,N),O).
-%dropNode([e(1,2),e(1,3),e(2,3)],1,[e(2,3)]).
+%dropNode([e(1,2),e(1,3),e(2,3)],1,[e(2,3)]). // non va
 
 
 % reaching(+Graph, +Node, -List)
@@ -66,8 +66,36 @@ dropNode(G,N,O):- dropAll(G,e(N,_),G2),dropAll(G2,e(_,N),O).
 % possibly use findall, looking for e(Node,_) combined
 % with member(?Elem,?List)
 
+reaching(G,N,L):- 
+	findall(E1,member(e(E1,N),G),L1),	% troviamo tutti i nodi da una parte e dell'altra e li raccogliamo in 2 liste 
+	findall(E2,member(e(N,E2),G),L2),	
+	append(L1,L2,L).		% We append the results
+
 % reaching([e(1,2),e(1,3),e(2,3)],1,L). -> L/[2,3]
 % reaching([e(1,2),e(1,2),e(2,3)],1,L). -> L/[2,2]).
+
+
+
+% anypath(+Graph, +Node1, +Node2, -ListPath)
+% a path from Node1 to Node2
+% if there are many path, they are showed 1-by-1
+% – a path from N1 to N2 exists if there is a e(N1,N2)
+% – a path from N1 to N2 is OK if N3 can be reached from N1, and then there is a path from N2 to N3, recursively
+
+
+% anypath([e(1,2),e(1,3),e(2,3)],1,3,L).
+% – L/[e(1,2),e(2,3)]
+% – L/[e(1,3)]
+
+
+
+
+% allreaching(+Graph, +Node, -List)
+% all the nodes that can be reached from Node
+% Suppose the graph is NOT circular!
+% Use findall and anyPath!
+
+% allreaching([e(1,2),e(2,3),e(3,5)],1,[2,3,5]).
 
 
 
