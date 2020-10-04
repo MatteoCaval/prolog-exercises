@@ -27,6 +27,13 @@ dropAny(X,[H|Xs],[H|L]):-dropAny(X,Xs,L).
 % dropAny(10,[10,20,10,30,10],L).
 
 
+% dropAll(Elem,List,Outlist)
+
+dropAll(X,[],[]).
+dropAll(X,[X|T],L):-dropAll(X,T,L), !.
+dropAll(X,[X,H|Xs],[H|L]):-dropAll(X,Xs,L).
+
+
 % fromList(+List,-Graph)
 fromList([_],[]).
 fromList([H1,H2|T],[e(H1,H2)|L]):- fromList([H2|T],L).
@@ -47,9 +54,20 @@ fromCircList([H1,H2|T],[e(H1,H2)|L],F) :- fromCircList([H2|T],L,F).
 % fromCircList([10],[e(10,10)]).
 
 
+% dropNode(+Graph, +Node, -OutGraph)
+% drop all edges starting and leaving from a Node
+% use dropAll defined in 1.1
+dropNode(G,N,O):- dropAll(G,e(N,_),G2),dropAll(G2,e(_,N),O).
+%dropNode([e(1,2),e(1,3),e(2,3)],1,[e(2,3)]).
 
 
+% reaching(+Graph, +Node, -List)
+% all the nodes that can be reached in 1 step from Node
+% possibly use findall, looking for e(Node,_) combined
+% with member(?Elem,?List)
 
+% reaching([e(1,2),e(1,3),e(2,3)],1,L). -> L/[2,3]
+% reaching([e(1,2),e(1,2),e(2,3)],1,L). -> L/[2,2]).
 
 
 
