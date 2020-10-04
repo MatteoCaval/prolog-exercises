@@ -82,6 +82,9 @@ reaching(G,N,L):-
 % – a path from N1 to N2 exists if there is a e(N1,N2)
 % – a path from N1 to N2 is OK if N3 can be reached from N1, and then there is a path from N2 to N3, recursively
 
+anypath([],N1,N2,[]).
+anypath(G,N1,N2,[e(N1,N2)]) :- member(e(N1,N2),G), !.
+anypath(G,N1,N2,[e(N1,N3)|L]) :- member(e(N1,N3),G), anypath(G,N2,N3,L).
 
 % anypath([e(1,2),e(1,3),e(2,3)],1,3,L).
 % – L/[e(1,2),e(2,3)]
@@ -94,6 +97,8 @@ reaching(G,N,L):-
 % all the nodes that can be reached from Node
 % Suppose the graph is NOT circular!
 % Use findall and anyPath!
+
+allreaching(G,N,L) :- findall(E,anypath(G,N,E,L2),L). % tutti i patch possibili, da cui estraggo il secondo nodo, e li raccolog, non va! 
 
 % allreaching([e(1,2),e(2,3),e(3,5)],1,[2,3,5]).
 
