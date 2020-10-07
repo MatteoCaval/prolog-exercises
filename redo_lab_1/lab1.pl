@@ -58,9 +58,8 @@ size([_|T],M) :- size(T,N), M is N+1.
 % size(List,Size)
 % Size will contain the number of elements in List, written using notation zero, s(zero), s(s(zero))..
 
-size2(zero,0).
-size2(cons(X), M) :- size2(X, N), M is N+1. 
-
+size2([],zero).
+size2([_|T], s(M)) :- size2(T,M). 
 
 
 % sum(List,Sum)
